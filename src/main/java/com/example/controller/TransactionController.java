@@ -5,6 +5,8 @@ import com.example.entity.FileMetadata;
 import com.example.service.TransactionService;
 import com.example.service.FileMetaDataService;
 import com.example.service.S3Service;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,9 +30,11 @@ public class TransactionController {
     @PostMapping("/user/{userId}")
     public Transaction createTransaction(
             @PathVariable int userId,
-            @RequestPart("transaction") Transaction transaction,
-            @RequestPart(value = "file", required = false) MultipartFile file) {
+            @RequestPart("transaction") String transactionJSON,
+            @RequestPart(value = "file", required = false) MultipartFile file) throws JsonProcessingException {
 
+        ObjectMapper objectMapper = new ObjectMapper();
+        Transaction transaction = objectMapper.readValue(transactionJSON,Transaction.class);
         return transactionService.createTransaction(userId, transaction, file);
     }
 
@@ -58,7 +62,7 @@ public class TransactionController {
         FileMetadata metadata = new FileMetadata();
         metadata.setFileName(file.getOriginalFilename());
         metadata.setFileUrl(fileUrl);
-        metadata.setTransactionId(transaction.getId());
+        metadata.setTransaction(transaction);
 
         fileUploadService.upload(metadata);
         return metadata;

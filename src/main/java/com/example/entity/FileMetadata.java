@@ -26,17 +26,19 @@ public class FileMetadata {
     @Column(name = "file_size")
     private long fileSize;
 
+    // Establish the relationship with the Transaction entity
     @ManyToOne
-    @JoinColumn(name = "transaction_id")
-    private long transactionId;
+    @JoinColumn(name = "transaction_id")  // The column that links to the Transaction table
+    private Transaction transaction;
 
     public FileMetadata() {}
 
-    public FileMetadata(String fileName, String fileUrl, String fileType, long fileSize, long transactionId) {
+    // Constructor updated to accept a Transaction object
+    public FileMetadata(String fileName, String fileUrl, String fileType, long fileSize, Transaction transaction) {
         this.fileName = fileName;
         this.fileUrl = fileUrl;
         this.fileType = fileType;
         this.fileSize = fileSize;
-        this.transactionId = transactionId;
+        this.transaction = transaction;  // Store the Transaction object directly
     }
 }
