@@ -28,15 +28,15 @@ public class FileMetadata {
 
     @ManyToOne
     @JoinColumn(name = "transaction_id")
-    private Transaction transaction;
+    private long transactionId;
 
     public FileMetadata() {}
 
-    public FileMetadata(String fileName, String fileUrl, String fileType, long fileSize, Transaction transaction) {
+    public FileMetadata(String fileName, String fileUrl, String fileType, long fileSize, long transactionId) {
         this.fileName = fileName;
         this.fileUrl = fileUrl;
         this.fileType = fileType;
         this.fileSize = fileSize;
-        this.transaction = transaction;
+        this.transactionId = transactionId;
     }
 }
