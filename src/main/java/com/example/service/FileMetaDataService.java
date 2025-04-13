@@ -1,6 +1,7 @@
+
 package com.example.service;
 
-import com.example.entity.FileUpload;
+import com.example.entity.FileMetadata;
 import com.example.entity.Transaction;
 import com.example.repository.FileUploadRepository;
 import jakarta.transaction.Transactional;
@@ -15,16 +16,14 @@ public class FileUploadService {
 
     @Autowired
     private FileUploadRepository fileUploadRepository;
-    @Autowired
-    private MongoTemplate mongoTemplate;
 
     @Transactional
-    public boolean upload(FileUpload fileUpload){
+    public boolean upload(FileMetadata fileUpload){
         fileUploadRepository.save(fileUpload);
         return true;
     }
 
-    public List<FileUpload> getFiles(Transaction transaction) {
+    public List<FileMetadata> getFiles(Transaction transaction) {
         //return null;
         return fileUploadRepository.findByTransactionId(transaction.getId());
     }
