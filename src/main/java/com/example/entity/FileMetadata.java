@@ -5,26 +5,34 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name = "file_metadata")  // Map this entity to your actual SQL table
 @Getter
 @Setter
-public class FileUpload {
+public class FileMetadata {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
+    @Column(name = "file_name")
     private String fileName;
-    private String fileUrl; // S3 URL or key to access the file
+
+    @Column(name = "file_url")
+    private String fileUrl;
+
+    @Column(name = "file_type")
     private String fileType;
+
+    @Column(name = "file_size")
     private long fileSize;
 
     @ManyToOne
     @JoinColumn(name = "transaction_id")
     private Transaction transaction;
 
-    public FileUpload() {}
+    public FileMetadata() {}
 
-    public FileUpload(String fileName, String fileUrl, String fileType, long fileSize, Transaction transaction) {
+    public FileMetadata(String fileName, String fileUrl, String fileType, long fileSize, Transaction transaction) {
         this.fileName = fileName;
         this.fileUrl = fileUrl;
         this.fileType = fileType;

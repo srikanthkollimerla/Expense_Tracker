@@ -1,31 +1,27 @@
-
 package com.example.service;
 
 import com.example.entity.FileMetadata;
 import com.example.entity.Transaction;
-import com.example.repository.FileUploadRepository;
+import com.example.repository.FileMetaDataRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class FileUploadService {
+public class FileMetaDataService {
 
     @Autowired
-    private FileUploadRepository fileUploadRepository;
+    private FileMetaDataRepository fileMetadataRepository;
 
     @Transactional
-    public boolean upload(FileMetadata fileUpload){
-        fileUploadRepository.save(fileUpload);
+    public boolean upload(FileMetadata fileMetadata) {
+        fileMetadataRepository.save(fileMetadata);
         return true;
     }
 
     public List<FileMetadata> getFiles(Transaction transaction) {
-        //return null;
-        return fileUploadRepository.findByTransactionId(transaction.getId());
+        return fileMetadataRepository.findByTransactionId(transaction.getId());
     }
-
 }

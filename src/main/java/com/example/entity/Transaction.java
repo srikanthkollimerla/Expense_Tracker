@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Table(name = "transactions")
 public class Transaction {
 
     @Id
@@ -23,9 +24,10 @@ public class Transaction {
     @JoinColumn(name = "user_id")  // This establishes the link between Transaction and User
     private User user;
 
+
     // One-to-many relationship: One transaction can have multiple files
     @OneToMany(mappedBy = "transaction", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<FileUpload> fileUploads;
+    private List<FileMetadata> fileMetadata;
 
     public Transaction() {}
 

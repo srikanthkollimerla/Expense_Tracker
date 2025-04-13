@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface FileUploadRepository extends JpaRepository<FileMetadata,String> {
+public interface FileMetaDataRepository extends JpaRepository<FileMetadata,String> {
     List<FileMetadata> findByTransactionId(Integer transactionId);
 }
